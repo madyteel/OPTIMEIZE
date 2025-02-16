@@ -53,19 +53,20 @@ public class ShowApps extends AppCompatActivity {
 //    protected void onResume(){
 //        super.onResume();
 //        progressBar.set
-    public void getInstalledApps(){
-        List<PackageInfo> packageInfos = getPackageManager().getInstalledPackages(0);
-
-        //add to list of appdata
-        for (int i = 0; i < packageInfos.size(); i++){
-            String name = packageInfos.get(i).applicationInfo.loadLabel(getPackageManager()).toString();
-            Drawable icon = packageInfos.get(i).applicationInfo.loadIcon(getPackageManager());
-            String packagename = packageInfos.get(i).packageName;
-
-            appDataSetList.add(new AppDataSet(name, icon, 0, packagename));
-        }
-        adapter.notifyDataSetChanged();
-//        if (progressBar.getVisibility() == RecyclerView.VISIBLE){
-//        progressBar.setVisibility(RecyclerView.GONE);
-        }
+//
+//    public void getInstalledApps(){
+//        List<PackageInfo> packageInfos = getPackageManager().getInstalledPackages(0);
+//
+//        //add to list of appdata
+//        for (int i = 0; i < packageInfos.size(); i++){
+//            String name = packageInfos.get(i).applicationInfo.loadLabel(getPackageManager()).toString();
+//            Drawable icon = packageInfos.get(i).applicationInfo.loadIcon(getPackageManager());
+//            String packagename = packageInfos.get(i).packageName;
+//
+//            appDataSetList.add(new AppDataSet(name, icon, 0, packagename));
+//        }
+//        adapter.notifyDataSetChanged();
+////        if (progressBar.getVisibility() == RecyclerView.VISIBLE){
+////        progressBar.setVisibility(RecyclerView.GONE);
+//    }
 }
