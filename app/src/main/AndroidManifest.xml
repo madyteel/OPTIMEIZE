@@ -2,6 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Instead of requesting QUERY_ALL_PACKAGES, explicitly declare required packages -->
+    <queries>
+        <package android:name="com.instagram.android" />
+        <package android:name="com.tiktok.android" />
+        <package android:name="com.whatsapp" />
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,18 +22,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp"
         tools:targetApi="31">
+
         <activity
             android:name=".ShowApps"
-            android:exported="false" />
+            android:exported="true" />
+
         <activity
-            android:name=".MainActivity"
+            android:name=".ChatbotActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- ✅ Register the UnlockReceiver here -->
+        <receiver android:name=".UnlockReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

@@ -6,63 +6,48 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
 import java.util.List;
 
-public class AppAdapter extends RecyclerView.Adapter<AppAdapter.adapter_design_backend> {
+public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 
-    List<AppDataSet> appDataSets = new ArrayList<>();
-    Context context;
+    private final List<AppDataSet> appList;
+    private final Context context;
 
-    public AppAdapter(List<AppDataSet> appDataSets, Context context){
-        this.appDataSets = appDataSets;
+    public AppAdapter(List<AppDataSet> appList, Context context) {
+        this.appList = appList;
         this.context = context;
     }
+
     @NonNull
     @Override
-    public adapter_design_backend onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.adapterdesign, parent, false);
-        adapter_design_backend design = new adapter_design_backend(view);
-        return design;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // ✅ Ensure app_item.xml is properly inflated
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.app_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull adapter_design_backend holder, int position) {
-        AppDataSet app = appDataSets.get(position);
-
-        holder.appname.setText(app.getAppname());
-        holder.appicon.setImageDrawable(app.getAppIcon());
-
-       if (app.getStatus() == 0){
-           holder.status.setImageResource(R.drawable.baseline_check_24);
-       }
-       else{
-           holder.status.setImageResource(R.drawable.baseline_block_24);
-       }
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        AppDataSet app = appList.get(position);
+        holder.appName.setText(app.getName()); // ✅ Make sure getName() exists in AppDataSet
+        holder.appIcon.setImageDrawable(app.getIcon()); // ✅ Ensure getIcon() method is implemented
     }
 
     @Override
     public int getItemCount() {
-        return appDataSets.size();
+        return appList.size();
     }
 
-    public class adapter_design_backend extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView appName;
+        ImageView appIcon;
 
-        TextView appname;
-        ImageView appicon, status;
-        public adapter_design_backend(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            appname = itemView.findViewById(R.id.Appname);
-            appicon = itemView.findViewById(R.id.AppIcon);
-            status = itemView.findViewById(R.id.StatusIcon);
-
-
-
+            appName = itemView.findViewById(R.id.app_name);
+            appIcon = itemView.findViewById(R.id.app_icon);
         }
     }
 }

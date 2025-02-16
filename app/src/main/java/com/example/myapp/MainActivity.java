@@ -3,6 +3,7 @@ package com.example.myapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         btnOpen.setOnClickListener(new View.OnClickListener() { //this opens the new activity page to show all apps in list view.
             @Override
             public void onClick(View v) {
-                startActivity( new Intent( MainActivity.this, ShowApps.class));
+                startActivity( new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
             }
         });
     }

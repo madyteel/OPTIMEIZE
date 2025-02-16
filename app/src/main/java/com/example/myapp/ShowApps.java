@@ -5,8 +5,8 @@ import android.app.ProgressDialog;
 import android.content.pm.PackageInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Build;
 import android.widget.ProgressBar;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -14,7 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.content.pm.PackageManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,28 +45,35 @@ public class ShowApps extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
-//        progressBar = new ProgressBar(this);
-//        progressBar.setVisibility(RecyclerView.VISIBLE);
+        ProgressBar progressBar = new ProgressBar(this);
+        progressBar.setVisibility(RecyclerView.VISIBLE);
     }
 
-//    @Override
-//    protected void onResume(){
-//        super.onResume();
-//        progressBar.set
-//
-//    public void getInstalledApps(){
-//        List<PackageInfo> packageInfos = getPackageManager().getInstalledPackages(0);
-//
-//        //add to list of appdata
-//        for (int i = 0; i < packageInfos.size(); i++){
-//            String name = packageInfos.get(i).applicationInfo.loadLabel(getPackageManager()).toString();
-//            Drawable icon = packageInfos.get(i).applicationInfo.loadIcon(getPackageManager());
-//            String packagename = packageInfos.get(i).packageName;
-//
-//            appDataSetList.add(new AppDataSet(name, icon, 0, packagename));
-//        }
-//        adapter.notifyDataSetChanged();
-////        if (progressBar.getVisibility() == RecyclerView.VISIBLE){
-////        progressBar.setVisibility(RecyclerView.GONE);
-//    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        getInstalledApps();
+    }
+
+    public void getInstalledApps(){
+        List<PackageInfo> packageInfos;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13+
+            packageInfos = getPackageManager().getInstalledPackages(PackageManager.PackageInfoFlags.of(0));
+        } else {
+            packageInfos = getPackageManager().getInstalledPackages(0);
+        }
+
+        appDataSetList.clear(); // Clear list before adding new items
+
+        for (PackageInfo packageInfo : packageInfos) {
+            String name = packageInfo.applicationInfo.loadLabel(getPackageManager()).toString();
+            Drawable icon = packageInfo.applicationInfo.loadIcon(getPackageManager());
+            String packagename = packageInfo.packageName;
+
+            appDataSetList.add(new AppDataSet(name, icon, 0, packagename));
+        }
+
+        adapter.notifyDataSetChanged();
+    }
 }

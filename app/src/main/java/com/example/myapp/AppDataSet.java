@@ -3,45 +3,50 @@ package com.example.myapp;
 import android.graphics.drawable.Drawable;
 
 public class AppDataSet {
+    private String name;
+    private Drawable icon;
+    private String packageName;
+    private int status; // 0 = unlocked, 1 = locked
 
-    String appname;
-    Drawable appIcon;
-    int status; // status = 0 -> unlocked. else, locked.
-    String packagename;
-
-   //constructor.
-    public AppDataSet(String appname, Drawable appIcon, int status, String packagename){
-        this.appname = appname;
-        this.appIcon = appIcon;
+    // Constructor
+    public AppDataSet(String name, Drawable icon, int status, String packageName) {
+        this.name = name;
+        this.icon = icon;
         this.status = status;
-        this.packagename = packagename;
+        this.packageName = packageName;
     }
 
-    //getters
-    public String getAppname(){
-        return appname;
+    // Getters
+    public String getName() {
+        return name;
     }
-    public String getPackagename(){
-        return packagename;
+
+    public Drawable getIcon() {
+        return icon;
     }
-    public Drawable getAppIcon(){
-        return appIcon;
+
+    public String getPackageName() {
+        return packageName;
     }
-    public int getStatus(){
+
+    public int getStatus() {
         return status;
     }
 
-    //setters
-    public void setAppname(String s){
-        this.appname = s;
+    // Setters
+    public void setName(String name) {
+        this.name = name;
     }
-    public void setAppIcon(Drawable d){
-        this.appIcon = d;
+
+    public void setIcon(Drawable icon) {
+        this.icon = icon;
     }
-    public void setStatus(int i){
-        this.status = i;
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
-    public void setPackagename(String s){
-        this.packagename = s;
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
