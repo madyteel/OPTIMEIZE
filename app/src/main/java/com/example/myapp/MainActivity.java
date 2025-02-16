@@ -1,7 +1,10 @@
+//This will be the homepage people see when they first open up the app.
 package com.example.myapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-
+    Button btnOpen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +24,13 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-    }
-    public void disable(View v){
-        v.setEnabled(false);
+
+        btnOpen = findViewById(R.id.buttonOpen);
+        btnOpen.setOnClickListener(new View.OnClickListener() { //this opens the new activity page to show all apps in list view.
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent( MainActivity.this, ShowApps.class));
+            }
+        });
     }
 }
